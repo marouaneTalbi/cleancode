@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes, Op } = require('sequelize');
 
- const sequelize = new Sequelize({
+const sequelize = new Sequelize({
     dialect: 'postgres' ,
     host: 'localhost' ,
     port: 5432 ,
@@ -8,6 +8,6 @@ const { Sequelize, DataTypes, Op } = require('sequelize');
     username: 'root' ,
     password: 'root' ,
     timestamps:false
-  });
+});
   
-  module.exports = { sequelize };
+module.exports = { sequelize };

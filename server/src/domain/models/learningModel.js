@@ -1,5 +1,5 @@
 const {Model, DataTypes} = require('sequelize');
-const { sequelize } = require('./sequelize');
+const { sequelize } = require('../../infrastructure/database/sequelize');
 
 const Learning = sequelize.define('Learning', {
     id: {
@@ -14,6 +14,13 @@ const Learning = sequelize.define('Learning', {
     date: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
+    },
+    cardId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Card',
+        key: 'id'
+      }
     }
   },  {
   tableName: 'Learning',
