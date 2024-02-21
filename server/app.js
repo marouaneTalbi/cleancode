@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const port = 4000;
+const bodyParser = require('body-parser');
 const cardRoute = require('./src/interfaces/routes/cardRoute');
 // const learningRoute = require('./router/learningRoute')
 app.use(cors({ 

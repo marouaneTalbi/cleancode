@@ -12,8 +12,9 @@ class CardApplicationService {
 
   async answerCardQuestion(cardId, isValid) {
     try {
-        const card = await this.cardRepository.getCardById(cardId);
 
+        const card = await this.cardRepository.getCardById(cardId);
+        
         let learning = await this.learningRepository.getLearningByCardId(cardId);
         if(!learning) {
             learning = await this.learningRepository.createLearning({cardId: cardId, isValid: isValid, date: new Date()})
