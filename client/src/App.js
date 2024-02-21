@@ -10,6 +10,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [startQuiz, setStartQuiz] = useState(false);
   const [cardResponses, setCardResponses] = useState({});
+  const [answeredCards, setAnsweredCards] = useState({});
   const [formData, setFormData] = useState({
     question: '',
     answer: '',
@@ -36,9 +37,22 @@ function App() {
   const createCard = async () => {
     try {
       const response = await axios.post('http://localhost:4000/cards', formData);
-      //setCards([...cards, response.data]);
     } catch (error) {
       console.error('Erreur lors de la création de la carte mémoire :', error);
+    }
+  }
+
+  const answserCardQuestion = async (cardId) => {
+    let isValid;
+    if(cardResponses[cardId] === cards.find(card => card.id === cardId).answer) {
+      isValid = true;
+    } else {
+      isValid = false;
+    }
+    try {
+      await axios.patch(`http://localhost:4000/cards/${cardId}/answer`, { isValid });
+    } catch (error) {
+      console.error('Erreur lors de la validation de la réponse :', error);
     }
   }
 
@@ -59,8 +73,19 @@ function App() {
     setOpenModal(false);
   };
 
-  const handleAnswer = (event) => {
-    
+  const handleForceAnswer = async(event, cardId) => {
+    event.preventDefault();
+    await axios.patch(`http://localhost:4000/cards/${cardId}/answer`, { isValid: true });
+  }
+
+  const handleAnswer = (event, cardId) => {
+    event.preventDefault();
+    answserCardQuestion(cardId);
+
+    setAnsweredCards((prevAnsweredCards) => ({
+      ...prevAnsweredCards,
+      [cardId]: true
+    }));
   }
 
   const handleChangeAnswer = (event, question) => {
@@ -81,11 +106,11 @@ function App() {
       <div className='flex flex-row gap-6 mt-6'>
         {
           startQuiz && cards.map((card, index) => (
-            <Card href="#" className="max-w-sm">
+            <Card className="max-w-sm" key={card.id}>
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {card.question}
               </h5>
-              <form onSubmit={handleAnswer}>
+              <form onSubmit={(event) => handleAnswer(event, card.id)}>
                 <TextInput
                   id={`answer-${card.question}`}
                   type="text"
@@ -93,8 +118,29 @@ function App() {
                   value={cardResponses[card.question] || ''}
                   onChange={(event) => handleChangeAnswer(event, card.question)}
                   required
+                  color={answeredCards[card.id] ? (cardResponses[card.question] === card.answer ? 'success' : 'failure') : 'gray'}
+                  helperText={
+                    answeredCards[card.id] ? (
+                      cardResponses[card.question] === card.answer ? (
+                        <>
+                          <span className="font-medium">Correct!</span> Réponse : {card.answer}
+                        </>
+                      ) : (
+                        <>
+                          <span className="font-medium">Incorrect!</span> Réponse : {card.answer}
+                        </>
+                      )
+                    ) : null
+                  }
                 />
-                <Button type='submit'>Envoyer</Button>
+                <div className='flex flex-row justify-between'>
+                  <Button className='mt-4' type='submit'>Répondre</Button>
+                  {
+                    answeredCards[card.id] && (cardResponses[card.question] !== card.answer) ? (
+                      <Button onClick={(event) => handleForceAnswer(event, card.id)} className='mt-4' color='gray'>Forcer la réponse</Button>
+                    ) : null
+                  }
+                </div>
               </form>
             </Card>
           ))

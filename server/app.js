@@ -6,12 +6,12 @@ const cardRoute = require('./src/interfaces/routes/cardRoute');
 // const learningRoute = require('./router/learningRoute')
 app.use(cors({ 
   origin: '*',
-  methods:['GET', 'POST', 'PUT', 'DELETE'] 
+  methods:['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
 }));
 
 app.use(express.json());
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 app.use('/', cardRoute);
 // app.use('/', learningRoute);
