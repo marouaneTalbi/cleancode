@@ -52,16 +52,44 @@ class CardApplicationService {
         date = currentDate.toISOString().slice(0, 10);
 
         const learnings = await this.learningRepository.getLearningsBy('date', date);
+        const cards = await this.cardRepository.getAllCards();
 
-        const cards = [];
+        const revisableCards = [];
         for (const learning of learnings) {
-            const card = await this.cardRepository.getCardById(learning.cardId);
-            cards.push(card);
+            const card = cards.find(card => card.id === learning.cardId);
+            card.lastRevisionDate = learning.date;
+            revisableCards.push(card);
         }
 
-        return cards;
+        const filteredCards = await this.filterQuestionsToReview(revisableCards);
+        return filteredCards;
     } catch(error) {
         throw new Error(error);
+    }
+  }
+
+  
+  
+
+  async calculateCurrentCategory(daysSinceLastRevision){
+  let currentCategory = 1;
+  let daysUntilNextRevision = 1;
+  while (currentCategory < 7) {
+    daysUntilNextRevision *= (currentCategory === 1 ? 1 : 2);
+    if (daysSinceLastRevision >= daysUntilNextRevision) {
+      currentCategory++;
+    } else {
+      break;
+    }
+  }
+  return currentCategory;
+};
+
+  async getLearningDateByCardId(cardId) {
+    try {
+      return await this.learningRepository.getLearningDateByCardId(cardId);
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }
