@@ -38,3 +38,19 @@ export const handleForceAnswer = async (event, cardId) => {
     console.error('Erreur lors de la validation de la réponse :', error);
   }
 }
+
+export const getCardsQuizz = async (date) => {
+  try {
+    if (!date) {
+      date = new Date();
+    }
+    const currentDate = new Date(date);
+    currentDate.setDate(currentDate.getDate() + 1);
+    date = currentDate.toISOString().slice(0, 10);
+
+    const response = await axios.get(`${baseURL}/quizz?date=${date}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des cartes pour le quiz :', error);
+  }
+}

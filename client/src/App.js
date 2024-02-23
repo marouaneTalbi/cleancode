@@ -2,7 +2,7 @@
 import './App.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllCards, createCard, answerCardQuestion, handleForceAnswer } from './services/cardServices';
+import { getCardsQuizz, getAllCards, createCard, answerCardQuestion, handleForceAnswer } from './services/cardServices';
 import { Button } from 'flowbite-react';
 import MyModal from './components/Modal';
 import MyCard from './components/Card';
@@ -29,8 +29,9 @@ function App() {
   };
 
   const handleQuiz = async()  => {
-    const cards = await getAllCards();
-    setCards(cards)
+    const allQuestions = await getAllCards();
+    //const testQuizz = await getCardsQuizz();
+    setCards(allQuestions)
     setStartQuiz(true);
   }
 
