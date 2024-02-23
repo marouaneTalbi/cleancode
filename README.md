@@ -59,6 +59,6 @@ Suivez ces étapes pour configurer votre environnement de développement.
 
 `Ouvrez un nouveau terminal, puis :`
 
-
+    cd server
     npm test
 ### Assurez-vous de vous positionner dans le dossier approprié (client ou server) selon où vous souhaitez exécuter les tests.
