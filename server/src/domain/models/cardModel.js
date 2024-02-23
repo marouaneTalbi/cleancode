@@ -10,6 +10,7 @@ const Cards = sequelize.define('Cards', {
     question: DataTypes.STRING,
     answer: DataTypes.STRING,
     tag: DataTypes.STRING,
+    lastRevisionDate: DataTypes.DATE,
     category: {
    type: DataTypes.ENUM('FIRST','SECOND','THIRD','FOURTH','FIFTH','SIXTH','SEVENTH','DONE'),
       defaultValue: 'FIRST'
