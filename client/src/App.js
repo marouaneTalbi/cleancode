@@ -1,6 +1,7 @@
 'use client';
 import './App.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getCards, createCard, answerCardQuestion, handleForceAnswer } from './services/cardServices';
 import { Button } from 'flowbite-react';
 import MyModal from './components/Modal';
@@ -73,7 +74,9 @@ function App() {
             <Button color='gray' onClick={() => setStartQuiz(false)}>Arrêter le questionnaire</Button>
           )
         }
-        <Button color='gray' className='border-none ml-auto underline'>Voir toutes les cartes</Button>
+        <Button color='gray' className='border-none ml-auto underline'>
+          <Link to='/cards'>Voir toutes les cartes</Link>
+        </Button>
       </div>
       <div className='flex flex-row gap-6 mt-6'>
         {
