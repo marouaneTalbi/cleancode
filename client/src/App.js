@@ -2,8 +2,7 @@
 import './App.css';
 import { useState } from 'react';
 import { getCards, createCard, answerCardQuestion, handleForceAnswer } from './services/cardServices';
-import { Button, Modal, Label, TextInput, Card } from 'flowbite-react';
-import axios from 'axios';
+import { Button } from 'flowbite-react';
 import MyModal from './components/Modal';
 import MyCard from './components/Card';
 
@@ -30,7 +29,6 @@ function App() {
 
   const handleQuiz = async()  => {
     const cards = await getCards();
-    console.log('rr')
     setCards(cards)
     setStartQuiz(true);
   }
@@ -49,7 +47,7 @@ function App() {
 
   const handleAnswer = (event, cardId) => {
     event.preventDefault();
-    answerCardQuestion(cardId,cardResponses, cards);
+    answerCardQuestion(cardId, cardResponses, cards);
     setAnsweredCards((prevAnsweredCards) => ({
       ...prevAnsweredCards,
       [cardId]: true
@@ -80,7 +78,8 @@ function App() {
       <div className='flex flex-row gap-6 mt-6'>
         {
           startQuiz && cards.map((card, index) => (
-            <MyCard 
+            <MyCard
+              key={card.id}
               card={card} 
               handleAnswer={handleAnswer} 
               handleChangeAnswer={handleChangeAnswer} 

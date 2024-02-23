@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Button, Modal, Label, TextInput, Card } from 'flowbite-react';
+import React from "react";
+import { Button, Modal, Label, TextInput } from 'flowbite-react';
 
 
 export default function MyModal({openModal, setOpenModal, formData, handleChange, handleSubmit}) {

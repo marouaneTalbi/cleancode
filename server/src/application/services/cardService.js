@@ -12,7 +12,6 @@ class CardApplicationService {
 
   async answerCardQuestion(cardId, isValid) {
     try {
-
         const card = await this.cardRepository.getCardById(cardId);
         
         let learning = await this.learningRepository.getLearningByCardId(cardId);

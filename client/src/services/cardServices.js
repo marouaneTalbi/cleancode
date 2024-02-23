@@ -22,6 +22,7 @@ export const createCard = async (formData) => {
 
 export const answerCardQuestion = async (cardId, cardResponses, cards) => {
   let isValid = cardResponses[cardId] === cards.find(card => card.id === cardId).answer;
+
   try {
     await axios.patch(`${baseURL}/${cardId}/answer`, { isValid });
   } catch (error) {
@@ -29,7 +30,8 @@ export const answerCardQuestion = async (cardId, cardResponses, cards) => {
   }
 }
 
-export const handleForceAnswer = async (cardId) => {
+export const handleForceAnswer = async (event, cardId) => {
+  event.preventDefault();
   try {
     await axios.patch(`${baseURL}/${cardId}/answer`, { isValid: true });
   } catch (error) {
