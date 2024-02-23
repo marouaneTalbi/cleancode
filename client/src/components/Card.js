@@ -14,13 +14,13 @@ export default function MyCard({card, handleAnswer, handleChangeAnswer, handleFo
             id={`answer-${card.question}`}
             type="text"
             placeholder="Votre réponse"
-            value={cardResponses[card.question] || ''}
-            onChange={(event) => handleChangeAnswer(event, card.question)}
+            value={cardResponses[card.id] || ''}
+            onChange={(event) => handleChangeAnswer(event, card.id)}
             required
-            color={answeredCards[card.id] ? (cardResponses[card.question] === card.answer ? 'success' : 'failure') : 'gray'}
+            color={answeredCards[card.id] ? (cardResponses[card.id] === card.answer ? 'success' : 'failure') : 'gray'}
             helperText={
               answeredCards[card.id] ? (
-                cardResponses[card.question] === card.answer ? (
+                cardResponses[card.id] === card.answer ? (
                   <>
                     <span className="font-medium">Correct!</span> Réponse : {card.answer}
                   </>

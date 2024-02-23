@@ -22,7 +22,7 @@ export const createCard = async (formData) => {
 
 export const answerCardQuestion = async (cardId, cardResponses, cards) => {
   let isValid = cardResponses[cardId] === cards.find(card => card.id === cardId).answer;
-
+  console.log(cardResponses);
   try {
     await axios.patch(`${baseURL}/${cardId}/answer`, { isValid });
   } catch (error) {

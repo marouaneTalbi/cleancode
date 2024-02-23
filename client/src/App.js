@@ -55,12 +55,12 @@ function App() {
     }));
   }
 
-  const handleChangeAnswer = (event, question) => {
+  const handleChangeAnswer = (event, cardId) => {
     event.preventDefault();
     const { value } = event.target;
     setCardResponses((prevResponses) => ({
       ...prevResponses,
-      [question]: value
+      [cardId]: value
     }));
   }; 
   
