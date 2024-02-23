@@ -30,7 +30,7 @@ class CardApplicationService {
         }
 
         learning.isValid = isValid;
-        learning.date = new Date().toISOString().slice(0, 10);;
+        learning.date = new Date().toISOString().slice(0, 10);
         await this.learningRepository.saveLearning(learning);
         await this.cardRepository.saveCard(card);
 
@@ -52,46 +52,46 @@ class CardApplicationService {
         date = currentDate.toISOString().slice(0, 10);
 
         const learnings = await this.learningRepository.getLearningsBy('date', date);
-        const cards = await this.cardRepository.getAllCards();
 
-        const revisableCards = [];
+        const cards = [];
         for (const learning of learnings) {
-            const card = cards.find(card => card.id === learning.cardId);
-            card.lastRevisionDate = learning.date;
-            revisableCards.push(card);
+            const category = this.getCategoryForDate(learning.date);
+            const card = await this.cardRepository.getCardById(learning.cardId);
+
+            if(category === card.category) {
+                cards.push(card);
+            }
         }
 
-        const filteredCards = await this.filterQuestionsToReview(revisableCards);
-        return filteredCards;
+        return cards;
     } catch(error) {
         throw new Error(error);
     }
   }
 
   
-  
+  getCategoryForDate(learningDate) {
+    const currentDate = new Date();
 
-  async calculateCurrentCategory(daysSinceLastRevision){
-  let currentCategory = 1;
-  let daysUntilNextRevision = 1;
-  while (currentCategory < 7) {
-    daysUntilNextRevision *= (currentCategory === 1 ? 1 : 2);
-    if (daysSinceLastRevision >= daysUntilNextRevision) {
-      currentCategory++;
+    const diffInDays = Math.floor((currentDate - new Date(learningDate))) / (1000 * 60 * 60 * 24);
+
+    if (diffInDays < 1) {
+        return "FIRST";
+    } else if (diffInDays < 2) {
+        return "SECOND";
+    } else if (diffInDays < 4) {
+        return "THIRD";
+    } else if (diffInDays < 8) {
+        return "FOURTH";
+    } else if (diffInDays < 16) {
+        return "FIFTH";
+    } else if (diffInDays < 32) {
+        return "SIXTH";
     } else {
-      break;
+        return "SEVENTH";
     }
-  }
-  return currentCategory;
-};
+}
 
-  async getLearningDateByCardId(cardId) {
-    try {
-      return await this.learningRepository.getLearningDateByCardId(cardId);
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
 }
 
 module.exports = CardApplicationService;

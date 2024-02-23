@@ -29,9 +29,9 @@ function App() {
   };
 
   const handleQuiz = async()  => {
-    const allQuestions = await getAllCards();
-    //const testQuizz = await getCardsQuizz();
-    setCards(allQuestions)
+    //const allQuestions = await getAllCards();
+    const testQuizz = await getCardsQuizz();
+    setCards(testQuizz)
     setStartQuiz(true);
   }
 

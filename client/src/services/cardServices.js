@@ -44,9 +44,7 @@ export const getCardsQuizz = async (date) => {
     if (!date) {
       date = new Date();
     }
-    const currentDate = new Date(date);
-    currentDate.setDate(currentDate.getDate() + 1);
-    date = currentDate.toISOString().slice(0, 10);
+    date = date.toISOString().slice(0, 10);
 
     const response = await axios.get(`${baseURL}/quizz?date=${date}`);
     return response.data;
