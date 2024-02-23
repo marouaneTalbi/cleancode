@@ -39,7 +39,7 @@ Suivez ces étapes pour configurer votre environnement de développement.
 
     cd cleancode
     docker cp ./sql.sql cleancode-db-1:/sql.sql
-    docker exec -i cleancode-db-1 psql -U root -d db -a -f /sql.sql
+    docker exec -i <nom du conteneur> psql -U root -d db -a -f /sql.sql
 
 
 -----------------
