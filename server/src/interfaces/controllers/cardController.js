@@ -24,7 +24,8 @@ exports.createCard = async (req, res) => {
 
 exports.getCardsQuizz = async (req, res) => {
     try {
-    
+        const cards = await cardApplicationService.getCardsQuizz(req.query.date);
+        return res.status(200).json(cards);
     } catch(error) {
         return res.status(500).json({message: error.message})
     }

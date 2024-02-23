@@ -18,11 +18,35 @@ class LearningRepository {
     }
   }
 
-  async getLearningByCardId(cardId) {
+  async getCardsBy(column, value) {
+    try {
+      return await Card.findAll({
+        where: {
+          [column]: value
+        }
+      })
+    } catch(error) {
+      throw new Error(error);
+    }
+  }
+
+  async getLearningsBy(column, value) {
+    try {
+        return await Learning.findAll({
+            where: {
+              [column]: value
+            }
+        })
+    } catch(error) {
+        throw new Error(error);
+    }
+  }
+
+  async getLearningBy(column, value) {
     try {
         return await Learning.findOne({
             where: {
-                cardId: cardId
+              [column]: value
             }
         })
     } catch(error) {
