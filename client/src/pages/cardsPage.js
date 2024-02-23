@@ -1,6 +1,6 @@
 'use client';
 import React, {useEffect, useState} from 'react'
-import { getCards } from '../services/cardServices';
+import { getAllCards } from '../services/cardServices';
 import { Card, Badge, Label, Select, Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ export default function CardsPage() {
 
     useEffect(() => {
         const fetchCards = async () => {
-            const cardsData = await getCards();
+            const cardsData = await getAllCards();
             setCards(cardsData);
             const uniqueTags = [...new Set(cardsData.map(card => card.tag))];
             setTags(uniqueTags);

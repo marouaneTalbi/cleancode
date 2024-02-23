@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 jest.mock('../src/infrastructure/repositories/cardRepository', () => {
   return jest.fn().mockImplementation(() => {
     return {
-      getCards: jest.fn().mockImplementation(() => [
+      getAllCards: jest.fn().mockImplementation(() => [
         { id: 1, name: 'Card 1', description: 'Description 1' },
         { id: 2, name: 'Card 2', description: 'Description 2' },
         { id: 3, name: 'Card 3', description: 'Description 2' },
@@ -35,10 +35,10 @@ jest.mock('../src/infrastructure/repositories/cardRepository', () => {
 });
 
 describe('CardService', () => {
-  describe('getCards', () => {
+  describe('getAllCards', () => {
     it('should return a list of cards', async () => {
       const cardService = new CardService();
-      const cards = await cardService.getCards();
+      const cards = await cardService.getAllCards();
       expect(cards.length).toBe(3);
       expect(cards[0].id).toBe(1);
       expect(cards[1].id).toBe(2);
@@ -52,8 +52,8 @@ describe('CardService', () => {
           { id: 3, name: 'Card 3', description: 'Description 3' },
         ];
         
-        cardService.cardRepository.getCards.mockResolvedValue(mockCards);
-        const cards = await cardService.getCards();
+        cardService.cardRepository.getAllCards.mockResolvedValue(mockCards);
+        const cards = await cardService.getAllCards();
         expect(cards).toEqual(mockCards);
       });
   });

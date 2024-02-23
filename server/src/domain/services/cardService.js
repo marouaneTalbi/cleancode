@@ -5,9 +5,9 @@ class CardService {
     this.cardRepository = new CardRepository();
   }
 
-  async getCards() {
+  async getAllCards() {
     try {
-      return await this.cardRepository.getCards();
+      return await this.cardRepository.getAllCards();
     } catch(error) {
       throw new Error(error);
     }

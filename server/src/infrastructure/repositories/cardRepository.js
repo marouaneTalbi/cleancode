@@ -10,7 +10,7 @@ class CardRepository {
     }
   }
 
-  async getCards() {
+  async getAllCards() {
     try {
       return await Card.findAll();
     } catch(error) {

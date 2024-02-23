@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const baseURL = 'http://localhost:4000/cards';
 
-export const getCards = async () => {
+export const getAllCards = async () => {
   try {
     const response = await axios.get(baseURL);
     return response.data;

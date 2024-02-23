@@ -4,9 +4,9 @@ const CardApplicationService = require('../../application/services/cardService')
 const cardService = new CardService();
 const cardApplicationService = new CardApplicationService();
 
-exports.getCards = async (req, res) => {
+exports.getAllCards = async (req, res) => {
     try {
-        const cards = await cardService.getCards();
+        const cards = await cardService.getAllCards();
         return res.status(200).json(cards);
     } catch(error) {
         return res.status(500).json({ message: error.message });
