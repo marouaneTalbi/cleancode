@@ -70,6 +70,12 @@ function App() {
       <div className='flex flex-row gap-6'>
         <Button onClick={() => setOpenModal(true)}>Créer une carte mémoire</Button>
         <Button color='gray' onClick={() => handleQuiz()}>Commencer un questionnaire</Button>
+        {
+          startQuiz && (
+            <Button color='gray' onClick={() => setStartQuiz(false)}>Arrêter le questionnaire</Button>
+          )
+        }
+        <Button color='gray' className='border-none ml-auto underline'>Voir toutes les cartes</Button>
       </div>
       <div className='flex flex-row gap-6 mt-6'>
         {
