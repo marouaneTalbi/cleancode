@@ -35,6 +35,13 @@ Suivez ces étapes pour configurer votre environnement de développement.
 
 ### Exécutez le script SQL sql.sql qui se trouve dans la racine du projet pour initialiser votre base de données .
 
+`Creer la base de données`
+
+    cd cleancode
+    docker cp ./sql.sql cleancode-db-1:/sql.sql
+    docker exec -i cleancode-db-1 psql -U root -d db -a -f /sql.sql
+
+
 -----------------
 
 `Installer les dépendances et démarrer le serveur`

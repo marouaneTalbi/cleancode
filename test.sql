@@ -1,0 +1,3 @@
+CREATE TABLE "nono" (
+    "id" SERIAL PRIMARY KEY
+);
