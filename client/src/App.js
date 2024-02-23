@@ -36,7 +36,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    createCard();
+    createCard(formData);
 
     setFormData({
       question: '',
@@ -67,7 +67,7 @@ function App() {
   return (
     <div className="p-4">
       <div className='flex flex-row gap-6'>
-        <Button onClick={() => setOpenModal(true)}>Créer une carte mémoire</Button>
+        <Button data-testid="create-card" onClick={() => setOpenModal(true)}>Créer une carte mémoire</Button>
         <Button color='gray' onClick={() => handleQuiz()}>Commencer un questionnaire</Button>
         {
           startQuiz && (

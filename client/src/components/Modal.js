@@ -3,7 +3,7 @@ import { Button, Modal, Label, TextInput } from 'flowbite-react';
 
 
 export default function MyModal({openModal, setOpenModal, formData, handleChange, handleSubmit}) {
-
+    
     return (
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Créer une carte mémoire</Modal.Header>
